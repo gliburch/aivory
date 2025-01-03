@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aivory</title>
+  <style>
+    @font-face {
+      font-family: 'Ownglyph_ParkDaHyun';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Ownglyph_ParkDaHyun';
+      --primary-color: #6616c0;
+      --secondary-color: #ff70ea;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-image: url(assets/bg-body.jpg);
+      background-size: cover;
+      background-position: 50% 50%;
+      color: #fff;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    header .logo {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    header nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 1em;
+    }
+    .hero {
+      position: relative;
+      padding-bottom: 100%;
+      background-image: url(assets/bg-hero.jpeg);
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: cover;
+    }
+    .hero .her-message {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      padding: 20px;
+      font-size: 1.2em;
+      border-radius: 15px;
+      border: 2px solid #fff;
+      background-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      color: var(--primary-color);
+      text-align: left;
+    }
+    .hero .her-message h1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: -20px 0 0 20px;
+      padding: 0 20px;
+      border-radius: 10px;
+      background-color: var(--secondary-color);
+      color: #fff;
+      font-size: 1em;
+    }
+    .hero .her-message p {
+      line-height: 150%;
+    }
+    .hero .her-message p + p {
+      margin-top: 10px;
+      line-height: 150%;
+    }
+    main {
+      font-size: 1.4em;
+    }
+    .slogan {
+      margin: 40px 0;
+      text-align: center;
+    }
+    .slogan h2 {
+      margin-bottom: 20px;
+      line-height: 120%;
+      font-size: 2em;
+      font-weight: normal;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+    }
+    .slogan h2 strong {
+      font-weight: 900;
+    }
+    .slogan p {
+      font-size: 1.2em;
+    }
+    .slogan p strong {
+      color: var(--primary-color);
+      font-size: 1.4em;
+      font-weight: 900;
+    }
+    .about {
+      margin: 40px 0;
+    }
+    .about + .about {
+      margin-top: 20px;
+    }
+    .about figure {
+      overflow: hidden;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .about figure img {
+      width: 200px;
+      height: 200px;
+      border-radius: 30%;
+      object-fit: cover;
+    }
+    .about h3 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .about p {
+      line-height: 120%;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .about p + p {
+      margin-top: 10px;
+    }
+    .footer-bar {
+      height: 100px;
+    }
+    .cta-buttons {
+      display: flex;
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 20px;
+      border-radius: 40px 40px 0 0;
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      justify-content: center;
+      gap: 15px;
+    }
+    .cta-buttons a {
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      padding: 15px 20px;
+      border-radius: 30px 10px 30px 10px;
+      box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.3);
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+    .cta-buttons a img {
+      filter: brightness(0) invert(1);
+    }
+    .cta-buttons .primary {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+    .cta-buttons .secondary {
+      background-color: var(--secondary-color);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Aivory</div>
+  <nav>
+    <a href="https://vaulted-pencil-b8c.notion.site/56-Aivory-16ddc2175f7d80038333fc5e58d2f99d" target="_blank">About</a>
+    <a href="https://vaulted-pencil-b8c.notion.site/58-Aivory-16ddc2175f7d807bbafee860c7d162b7?pvs=4" target="_blank">White Paper</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="her-message">
+    <h1>Aivory ❤️</h1>
+    <p>반가워요 저는 에이아이보리 라고 해요 :)</p>
+  </div>
+</section>
+
+<main>
+
+  <div class="slogan">
+    <h2>
+      새로운 <strong>돈</strong><br>
+      새로운 <strong>금융</strong><br>
+      <strong>AI 에이전트</strong>
+    </h2>
+    <p>
+      <strong>&quot;Aivory&quot;</strong>
+    </p>
+  </div>
+
+  <div class="about">
+    <figure>
+      <img src="assets/vory-1.jpeg" width="200" height="200" alt="">
+    </figure>
+    <!-- <h3>Aivory 프로젝트</h3> -->
+    <p>
+      Aivory는<br>
+      AI 에이전트 프레임워크 입니다.<br>
+      그 첫 번째 프로젝트로<br>
+      <u style="color: var(--primary-color); text-shadow: none;">보리</u>
+      와
+      <u style="color: var(--secondary-color); text-shadow: none;">소이</u>
+      를 소개합니다.
+    </p>
+  </div>
+
+  <div class="about">
+    <figure>
+      <img src="assets/vory-2.jpeg" width="200" height="200" alt="">
+    </figure>
+    <!-- <h3>Aivory 프로젝트</h3> -->
+    <p>
+      귀엽고 활발한 보리<br>
+      조용하고 여성스러운 소이
+    </p>
+  </div>
+
+  <div class="about">
+    <figure>
+      <img src="assets/soy-1.jpeg" width="200" height="200" alt="">
+    </figure>
+    <!-- <h3>Aivory 프로젝트</h3> -->
+    <p>
+      둘은<br>
+      사이좋게 지내기도<br>
+      다투기도 하며 지냅니다.
+    </p>
+    <p>
+      여러분은<br>
+      보리와 소이 사이에서<br>
+      사이좋게 살아가게 됩니다.
+    </p>
+  </div>
+
+</main>
+
+<div class="footer-bar">
+  <div class="cta-buttons">
+    <a href="https://app.uniswap.org/" target="_blank" class="primary">
+      UNISWAP 구매
+    </a>
+    <!-- <a href="https://vaulted-pencil-b8c.notion.site/54-Aivory-16ddc2175f7d804b87d9d17e2f5346ec" target="_blank" class="secondary">
+      <img src="assets/icon-twitter-x.svg" width="20" height="20" style="margin-top: 5px;" alt="X">
+    </a> -->
+    <a href="https://t.me/+7OabMDiOBt45OWY1" target="_blank" class="secondary">
+      <img src="assets/icon-telegram.svg" width="25" height="25" style="margin-top: 2px;" alt="Telegram">
+    </a>
+  </div>
+</div>
+
+</body>
+</html>
