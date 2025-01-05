@@ -17,6 +17,7 @@
       font-family: 'Ownglyph_ParkDaHyun';
       --primary-color: #6616c0;
       --secondary-color: #ff70ea;
+      --container-width: 640px;
     }
     body {
       font-family: Arial, sans-serif;
@@ -27,7 +28,7 @@
       color: #fff;
     }
     .container {
-      max-width: 640px;
+      max-width: var(--container-width);
       margin: 0 auto;
     }
     header {
@@ -150,10 +151,12 @@
     .cta-buttons {
       display: flex;
       position: fixed;
-      right: 0;
       bottom: 0;
-      left: 0;
-      padding: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: var(--container-width);
+      padding: 20px 0;
       border-radius: 40px 40px 0 0;
       background-color: rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -168,6 +171,7 @@
       border-radius: 30px 10px 30px 10px;
       box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.3);
       font-size: 1.2em;
+      white-space: nowrap;
       text-decoration: none;
     }
     .cta-buttons a.disabled {
