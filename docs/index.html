@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aivory</title>
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
   <style>
     @font-face {
       font-family: 'Ownglyph_ParkDaHyun';
@@ -205,7 +206,14 @@
   <section class="hero">
     <div class="her-message">
       <h1>Aivory ❤️</h1>
-      <p>반가워요 저는 에이아이보리 라고 해요 :)</p>
+      <span id="typed"></span>
+      <script>
+        var typed = new Typed('#typed', {
+          strings: ['반가워요 저는 에이아이보리 라고 해요 :)'],
+          typeSpeed: 35,
+          startDelay: 1000,
+        });
+      </script>
     </div>
   </section>
 
