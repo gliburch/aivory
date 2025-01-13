@@ -169,9 +169,9 @@
     }
     .cta-buttons a {
       display: inline-block;
-      height: 30px;
-      line-height: 30px;
-      padding: 15px;
+      min-height: 60px;
+      line-height: 60px;
+      padding: 0 20px;
       border-radius: 30px 10px 30px 10px;
       box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.3);
       font-size: 1.2em;
@@ -182,7 +182,7 @@
       opacity: 0.3;
     }
     .cta-buttons a img {
-      filter: brightness(0) invert(1);
+      vertical-align: middle;
     }
     .cta-buttons .primary {
       background-color: var(--primary-color);
@@ -286,14 +286,15 @@
 
   <div class="footer-bar">
     <div class="cta-buttons">
-      <a href="https://quickswap.exchange/#/swap?currency0=0xB5C064F955D8e7F38fE0460C556a72987494eE17&currency1=0x634d198Ec69b87F24901574C388fe8f90ADf2B50&swapIndex=2" target="_blank" class="primary">
+      <!-- <a href="https://quickswap.exchange/#/swap?currency0=0xB5C064F955D8e7F38fE0460C556a72987494eE17&currency1=0x634d198Ec69b87F24901574C388fe8f90ADf2B50&swapIndex=2" target="_blank" class="primary">
         QUICK 구매
-      </a>
-      <a href="https://quickswap.exchange/#/swap?currency0=0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619&currency1=0x634d198Ec69b87F24901574C388fe8f90ADf2B50&swapIndex=2" target="_blank" class="primary">
+      </a> -->
+      <!-- <a href="https://quickswap.exchange/#/swap?currency0=0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619&currency1=0x634d198Ec69b87F24901574C388fe8f90ADf2B50&swapIndex=2" target="_blank" class="primary">
         ETH 구매
-      </a>
+      </a> -->
       <a href="https://quickswap.exchange/#/swap?currency0=ETH&currency1=0x634d198Ec69b87F24901574C388fe8f90ADf2B50&swapIndex=2" target="_blank" class="primary">
-        POL 구매
+        <img src="assets/icon-polygon.svg" width="45" height="45" alt="Polygon">
+        폴리곤(POL) 으로 구매하기
       </a>
       <!-- <a href="https://vaulted-pencil-b8c.notion.site/54-Aivory-16ddc2175f7d804b87d9d17e2f5346ec" target="_blank" class="secondary">
         <img src="assets/icon-twitter-x.svg" width="20" height="20" style="margin-top: 5px;" alt="X">
