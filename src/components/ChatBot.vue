@@ -142,41 +142,41 @@ onMounted(async () => {
   font-size: 1rem;
   line-height: 1.625;
 }
-.markdown:deep > * + * {
+.markdown:deep(> * + *) {
   margin-top: 0.75em;
 }
-.markdown:deep p {
+.markdown:deep(p) {
   white-space: pre-wrap;
 }
-.markdown:deep code {
+.markdown:deep(code) {
   padding: 0.25rem 0.5rem;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
 }
-.markdown:deep pre {
+.markdown:deep(pre) {
   padding: 0.75rem;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   overflow-x: auto;
 }
-.markdown:deep pre code {
+.markdown:deep(pre code) {
   background-color: transparent;
   padding: 0;
 }
-.markdown:deep ul,
-.markdown:deep ol {
+.markdown:deep(ul),
+.markdown:deep(ol) {
   padding-left: 1.5rem;
 }
-.markdown:deep ul {
+.markdown:deep(ul) {
   list-style-type: disc;
 }
-.markdown:deep ol {
+.markdown:deep(ol) {
   list-style-type: decimal;
 }
-.markdown:deep strong {
+.markdown:deep(strong) {
   font-weight: 700;
 }
-.markdown:deep em {
+.markdown:deep(em) {
   font-style: italic;
 }
 </style>
