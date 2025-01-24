@@ -137,46 +137,46 @@ onMounted(async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .markdown {
   font-size: 1rem;
   line-height: 1.625;
 }
-.markdown > * + * {
+.markdown:deep > * + * {
   margin-top: 0.75em;
 }
-.markdown p {
+.markdown:deep p {
   white-space: pre-wrap;
 }
-.markdown code {
+.markdown:deep code {
   padding: 0.25rem 0.5rem;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
 }
-.markdown pre {
+.markdown:deep pre {
   padding: 0.75rem;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   overflow-x: auto;
 }
-.markdown pre code {
+.markdown:deep pre code {
   background-color: transparent;
   padding: 0;
 }
-.markdown ul,
-.markdown ol {
+.markdown:deep ul,
+.markdown:deep ol {
   padding-left: 1.5rem;
 }
-.markdown ul {
+.markdown:deep ul {
   list-style-type: disc;
 }
-.markdown ol {
+.markdown:deep ol {
   list-style-type: decimal;
 }
-.markdown strong {
+.markdown:deep strong {
   font-weight: 700;
 }
-.markdown em {
+.markdown:deep em {
   font-style: italic;
 }
 </style>
