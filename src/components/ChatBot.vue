@@ -97,7 +97,7 @@ onMounted(async () => {
     <!-- Messages container with ref -->
     <div 
       ref="messagesContainer"
-      class="flex-1 overflow-y-auto p-4 space-y-4"
+      class="flex flex-col flex-1 overflow-y-auto p-4 gap-y-4"
     >
       <template v-for="message in sortedMessages" :key="message.id">
         <!-- Receiver message -->
@@ -139,33 +139,44 @@ onMounted(async () => {
 
 <style>
 .markdown {
-  @apply text-base leading-relaxed;
+  font-size: 1rem;
+  line-height: 1.625;
+}
+.markdown > * + * {
+  margin-top: 0.75em;
 }
 .markdown p {
-  @apply whitespace-pre-wrap;
+  white-space: pre-wrap;
 }
 .markdown code {
-  @apply px-1 py-0.5 bg-black/10 rounded;
+  padding: 0.25rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
 }
 .markdown pre {
-  @apply p-3 bg-black/10 rounded-lg overflow-x-auto;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  overflow-x: auto;
 }
 .markdown pre code {
-  @apply bg-transparent p-0;
+  background-color: transparent;
+  padding: 0;
 }
-.markdown ul, .markdown ol {
-  @apply pl-6;
+.markdown ul,
+.markdown ol {
+  padding-left: 1.5rem;
 }
 .markdown ul {
-  @apply list-disc;
+  list-style-type: disc;
 }
 .markdown ol {
-  @apply list-decimal;
+  list-style-type: decimal;
 }
 .markdown strong {
-  @apply font-bold;
+  font-weight: 700;
 }
 .markdown em {
-  @apply italic;
+  font-style: italic;
 }
 </style>
