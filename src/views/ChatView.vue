@@ -3,10 +3,5 @@ import ChatBot from '../components/ChatBot.vue'
 </script>
 
 <template>
-  <div class="about">
-    <ChatBot />
-  </div>
+  <ChatBot />
 </template>
-
-<style>
-</style>
