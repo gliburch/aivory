@@ -1,86 +1,86 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import AivoryHero from '@/components/AivoryHero.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/chat">Chat</RouterLink>
+  <div
+    :class="[
+      'max-w-[1280px]',
+      'lg:grid lg:grid-cols-2 lg:mmax-w-[1920px] lg:mx-auto lg:items-center',
+    ]"
+  >
+    <header :class="['lg:overflow-hidden lg:w-[500px] lg:rounded-3xl lg:shadow-2xl lg:mx-auto']">
+      <nav class="bg-primary text-white px-5 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">
+          <RouterLink :to="{ name: 'home' }">Aivory</RouterLink>
+        </h1>
+        <div class="flex items-center space-x-4">
+          <a
+            href="https://vaulted-pencil-b8c.notion.site/hub-174dc2175f7d8006a52dfafc345d6dd4"
+            target="_blank"
+            class="text-white hover:underline"
+            >$HUB</a
+          >
+          <a
+            href="https://vaulted-pencil-b8c.notion.site/56-Aivory-16ddc2175f7d80038333fc5e58d2f99d"
+            target="_blank"
+            class="text-white hover:underline"
+            >Future</a
+          >
+          <a
+            href="https://vaulted-pencil-b8c.notion.site/58-Aivory-16ddc2175f7d807bbafee860c7d162b7?pvs=4"
+            target="_blank"
+            class="text-white hover:underline"
+            >White Paper</a
+          >
+          <!-- <RouterLink
+            :to="{name: 'chat'}"
+            class="text-white"
+            >Chat
+          </RouterLink> -->
+          <a href="https://t.me/iamaivory" target="_blank">
+            <img
+              src="@/assets/images/icon-telegram.svg"
+              alt="Telegram"
+              class="w-6 h-6 inline-block"
+            />
+          </a>
+        </div>
       </nav>
-    </div>
-  </header>
-
-  <RouterView />
+      <AivoryHero></AivoryHero>
+      <nav
+        :class="[
+          'fixed bottom-0 left-1/2 -translate-x-1/2 w-full p-4',
+          'bg-white/40 rounded-t-[40px] backdrop-blur-md flex justify-center space-x-4',
+          'lg:static lg:translate-none lg:rounded-none',
+        ]"
+      >
+        <a
+          href="https://quickswap.exchange/#/swap?currency0=ETH&currency1=0x634d198Ec69b87F24901574C388fe8f90ADf2B50&swapIndex=2"
+          target="_blank"
+          class="leading-[40px] px-3 py-2 rounded-tl-[30px] rounded-br-[30px] rounded-tr-[15px] rounded-bl-[15px] bg-primary text-white text-lg shadow-md"
+        >
+          <img
+            src="@/assets/images/icon-polygon.svg"
+            alt=""
+            width="45"
+            height="45"
+            class="inline-block"
+          />
+          폴리곤으로 구매 (POL)
+        </a>
+        <a
+          href="https://polygonscan.com/token/0x634d198Ec69b87F24901574C388fe8f90ADf2B50"
+          target="_blank"
+          class="leading-[40px] px-3 py-2 rounded-tl-[30px] rounded-br-[30px] rounded-tr-[15px] rounded-bl-[15px] bg-secondary text-white text-lg shadow-md"
+        >
+          Aivory 토큰
+        </a>
+      </nav>
+    </header>
+    <main class="lg:h-screen lg:overflow-auto">
+      <RouterView />
+    </main>
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>

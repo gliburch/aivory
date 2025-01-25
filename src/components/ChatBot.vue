@@ -11,9 +11,7 @@ const messagesContainer = ref(null)
 
 // Sort messages by created_at in descending order
 const sortedMessages = computed(() => {
-  return [...messages.value].sort((a, b) => 
-    new Date(a.created_at) - new Date(b.created_at)
-  )
+  return [...messages.value].sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
 })
 
 // Scroll to bottom function
@@ -25,7 +23,9 @@ const scrollToBottom = () => {
 
 const fetchMessages = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/assistants/threads/thread_aohLbzFLIFj68pQVYMMqNYoX/messages?limit=100')
+    const response = await axios.get(
+      'http://localhost:3000/api/assistants/threads/thread_aohLbzFLIFj68pQVYMMqNYoX/messages?limit=100',
+    )
     messages.value = response.data.data
   } catch (error) {
     console.error('Error fetching messages:', error)
@@ -42,9 +42,12 @@ const handleSubmit = async (e) => {
   newMessage.value = ''
   isLoading.value = true
   try {
-    await axios.post('http://localhost:3000/api/assistants/threads/thread_aohLbzFLIFj68pQVYMMqNYoX/messages', {
-      content: messageToSend
-    })
+    await axios.post(
+      'http://localhost:3000/api/assistants/threads/thread_aohLbzFLIFj68pQVYMMqNYoX/messages',
+      {
+        content: messageToSend,
+      },
+    )
     await fetchMessages()
     scrollToBottom()
   } catch (error) {
@@ -57,30 +60,39 @@ const handleSubmit = async (e) => {
 // Configure marked options
 marked.setOptions({
   breaks: true, // Enable line breaks
-  gfm: true,    // Enable GitHub Flavored Markdown
+  gfm: true, // Enable GitHub Flavored Markdown
 })
 
 const useMessageFormatting = () => {
   const formatMessageContent = (message) => {
     if (!message.content || !Array.isArray(message.content)) return ''
-    
+
     const content = message.content
-      .filter(content => content.type === 'text')
-      .map(content => content.text.value)
+      .filter((content) => content.type === 'text')
+      .map((content) => content.text.value)
       .join('\n')
-      
+
     // Convert markdown to HTML, then sanitize
     const htmlContent = marked(content)
     return xss(htmlContent, {
       whiteList: {
-        p: [], b: [], i: [], em: [], strong: [], 
-        code: [], pre: [], br: [], ul: [], ol: [], li: []
-      }
+        p: [],
+        b: [],
+        i: [],
+        em: [],
+        strong: [],
+        code: [],
+        pre: [],
+        br: [],
+        ul: [],
+        ol: [],
+        li: [],
+      },
     })
   }
 
   return {
-    formatMessageContent
+    formatMessageContent,
   }
 }
 
@@ -95,22 +107,25 @@ onMounted(async () => {
 <template>
   <div class="flex flex-col h-screen">
     <!-- Messages container with ref -->
-    <div 
-      ref="messagesContainer"
-      class="flex flex-col flex-1 overflow-y-auto p-4 gap-y-4"
-    >
+    <div ref="messagesContainer" class="flex flex-col flex-1 overflow-y-auto p-4 gap-y-4">
       <template v-for="message in sortedMessages" :key="message.id">
         <!-- Receiver message -->
         <div v-if="message.role === 'assistant'" class="flex items-start">
           <div class="bg-gray-100 rounded-lg p-3 max-w-[70%]">
-            <div class="markdown text-gray-800 [&>*]:mb-3 [&>*:last-child]:mb-0" v-html="formatMessageContent(message)"></div>
+            <div
+              class="markdown text-gray-800 [&>*]:mb-3 [&>*:last-child]:mb-0"
+              v-html="formatMessageContent(message)"
+            ></div>
           </div>
         </div>
 
         <!-- Sender message -->
         <div v-else class="flex items-start justify-end">
           <div class="bg-[var(--vt-c-highlight)] rounded-lg p-3 max-w-[70%]">
-            <div class="markdown text-white [&>*]:mb-3 [&>*:last-child]:mb-0" v-html="formatMessageContent(message)"></div>
+            <div
+              class="markdown text-white [&>*]:mb-3 [&>*:last-child]:mb-0"
+              v-html="formatMessageContent(message)"
+            ></div>
           </div>
         </div>
       </template>
