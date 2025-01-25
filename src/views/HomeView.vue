@@ -1,5 +1,5 @@
 <template>
-  <section class="pt-10 pb-50 lg:pt-50 text-center">
+  <section class="pt-10 pb-30 lg:pt-30 text-center">
     <header>
       <h2 class="mb-5 text-white text-4xl font-bold leading-tight">
         새로운 <strong class="font-black">돈</strong><br />
