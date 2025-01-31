@@ -121,7 +121,7 @@ onMounted(async () => {
 
         <!-- Sender message -->
         <div v-else class="flex items-start justify-end">
-          <div class="bg-[var(--vt-c-highlight)] rounded-lg p-3 max-w-[70%]">
+          <div class="bg-primary rounded-lg p-3 max-w-[70%]">
             <div
               class="markdown text-white [&>*]:mb-3 [&>*:last-child]:mb-0"
               v-html="formatMessageContent(message)"
@@ -138,11 +138,11 @@ onMounted(async () => {
           v-model="newMessage"
           type="text"
           placeholder="메시지 입력"
-          class="flex-1 rounded-full border border-gray-300 px-4 py-2 focus:outline-none focus:border-[var(--vt-c-highlight)]"
+          class="flex-1 rounded-full border border-primary px-4 py-2 focus:outline-none focus:bg-white/40"
         />
         <button
           type="submit"
-          class="bg-[var(--vt-c-highlight)] text-white px-6 py-2 rounded-full cursor-pointer hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          class="bg-primary text-white px-6 py-2 rounded-full cursor-pointer hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           :disabled="isLoading"
         >
           보내기
