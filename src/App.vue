@@ -59,7 +59,7 @@ import AivoryHero from '@/components/AivoryHero.vue'
         <a
           href="https://quickswap.exchange/#/swap?currency0=ETH&currency1=0x634d198Ec69b87F24901574C388fe8f90ADf2B50&swapIndex=2"
           target="_blank"
-          class="leading-[40px] px-3 py-2 rounded-tl-[30px] rounded-br-[30px] rounded-tr-[15px] rounded-bl-[15px] bg-primary text-white text-lg shadow-md"
+          class="leading-[40px] px-3 py-2 rounded-tl-[30px] rounded-br-[30px] rounded-tr-[15px] rounded-bl-[15px] bg-primary hover:bg-primary/85 text-white text-lg shadow-md"
         >
           <img
             src="@/assets/images/icon-polygon.svg"
@@ -73,7 +73,7 @@ import AivoryHero from '@/components/AivoryHero.vue'
         <a
           href="https://polygonscan.com/token/0x634d198Ec69b87F24901574C388fe8f90ADf2B50"
           target="_blank"
-          class="leading-[40px] px-3 py-2 rounded-tl-[30px] rounded-br-[30px] rounded-tr-[15px] rounded-bl-[15px] bg-secondary text-white text-lg shadow-md"
+          class="leading-[40px] px-3 py-2 rounded-tl-[30px] rounded-br-[30px] rounded-tr-[15px] rounded-bl-[15px] bg-secondary hover:bg-secondary/85 text-white text-lg shadow-md"
         >
           Aivory 토큰
         </a>
