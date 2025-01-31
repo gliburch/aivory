@@ -6,8 +6,8 @@ import AivoryHero from '@/components/AivoryHero.vue'
 <template>
   <div
     :class="[
-      'max-w-[1280px]',
-      'lg:grid lg:grid-cols-2 lg:max-w-[1920px] lg:mx-auto lg:items-center',
+      'max-w-[800px] mx-auto',
+      'lg:grid lg:grid-cols-2 lg:max-w-[1920px] lg:items-center',
     ]"
   >
     <header :class="['lg:overflow-hidden lg:w-[500px] lg:rounded-3xl lg:shadow-2xl lg:mx-auto']">
