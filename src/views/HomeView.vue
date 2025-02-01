@@ -1,5 +1,7 @@
 <template>
-  <section class="pt-10 pb-30 lg:pt-30 text-center">
+  <section class="lg:max-h-screen lg:overflow-auto text-center">
+    <div class="h-10 lg:h-30"></div>
+
     <header>
       <h2 class="mb-5 text-white text-4xl font-bold leading-tight">
         새로운 <strong class="font-black">돈</strong><br />
@@ -60,5 +62,7 @@
         <p class="mt-3">여러분은<br />보리와 소이 사이에서<br />사이좋게 살아가게 됩니다.</p>
       </div>
     </div>
+
+    <div class="h-30"></div>
   </section>
 </template>

@@ -1,16 +1,20 @@
 <script setup>
+import { ref, Transition } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import AivoryHero from '@/components/AivoryHero.vue'
+import ChatBot from '@/components/ChatBot.vue'
+
+const isTalkingInline = ref(false)
 </script>
 
 <template>
   <div
     :class="[
       'max-w-[800px] mx-auto',
-      'lg:grid lg:grid-cols-2 lg:max-w-[1920px] lg:items-center',
+      'lg:grid lg:grid-cols-2 lg:max-w-[1200px] lg:h-screen lg:items-center',
     ]"
   >
-    <header :class="['lg:overflow-hidden lg:w-[500px] lg:rounded-3xl lg:shadow-2xl lg:mx-auto']">
+    <header class="lg:overflow-hidden lg:w-[500px] lg:mx-auto lg:rounded-3xl lg:shadow-2xl">
       <nav class="bg-primary text-white px-5 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">
           <RouterLink :to="{ name: 'home' }">Aivory</RouterLink>
@@ -48,8 +52,55 @@ import AivoryHero from '@/components/AivoryHero.vue'
           </a>
         </div>
       </nav>
-      <AivoryHero></AivoryHero>
+      <AivoryHero />
+      <div class="mt-[-30%] mb-[30%] lg:relative lg:mt-auto lg:mb-auto">
+        <section
+          :class="[
+            'relative w-[340px] mx-auto bg-white/60 rounded-xl shadow-lg border-2 border-white backdrop-blur-md text-primary',
+            'lg:absolute lg:bottom-15 lg:left-[50%] lg:translate-x-[-50%] lg:transition-transform',
+            'hover:-translate-y-0.5',
+          ]"
+        >
+          <h1
+            class="absolute top-[-20px] left-[20px] py-1 px-3 bg-secondary text-white rounded-lg text-base"
+          >
+            Aivory ❤️
+          </h1>
+          <Transition name="fade" mode="out-in">
+            <div v-if="!isTalkingInline" class="p-5">
+              <span class="text-md">반가워요 저는 에이아이보리 라고 해요 :)&nbsp;</span><br />
+              <span class="text-md">( ... 대화하려면 클릭해요 )</span>
+              <!-- <Typed
+              :options="{
+              strings: ['반가워요 저는 에이아이보리 라고 해요 :)&nbsp;'],
+              typeSpeed: 35,
+              startDelay: 1000,
+              cursorChar: '_',
+              }">
+              <span class="text-lg"></span>
+            </Typed> -->
+              <button
+                type="button"
+                class="block lg:hidden overflow-hidden absolute top-0 right-0 bottom-0 left-0 border-none bg-transparent text-[0px] -indent-[999px] cursor-pointer"
+                @click="isTalkingInline = true"
+              >
+                대화 시작하기
+              </button>
+              <RouterLink
+                class="hidden lg:block overflow-hidden absolute top-0 right-0 bottom-0 left-0 text-[0px] -indent-[999px]"
+                :to="{ name: 'chat' }"
+              >
+                대화 시작하기
+              </RouterLink>
+            </div>
+            <div v-else>
+              <ChatBot threadId="thread_aohLbzFLIFj68pQVYMMqNYoX" />
+            </div>
+          </Transition>
+        </section>
+      </div>
       <nav
+        v-if="!isTalkingInline"
         :class="[
           'fixed bottom-0 left-1/2 -translate-x-1/2 w-full p-4',
           'bg-white/40 rounded-t-[40px] backdrop-blur-md flex justify-center space-x-4',
@@ -79,7 +130,7 @@ import AivoryHero from '@/components/AivoryHero.vue'
         </a>
       </nav>
     </header>
-    <main class="lg:h-screen lg:overflow-auto">
+    <main>
       <RouterView />
     </main>
   </div>

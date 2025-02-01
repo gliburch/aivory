@@ -3,6 +3,11 @@ import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import { marked } from 'marked'
 import xss from 'xss'
+import AnimatedLoading from '@/components/AnimatedLoading.vue'
+
+const props = defineProps({
+  threadId: String,
+})
 
 const isLoading = ref(true)
 const messages = ref([])
@@ -21,17 +26,41 @@ const scrollToBottom = () => {
   }
 }
 
-const fetchMessages = async () => {
+const fetchMessages = async (limit = 100) => {
   try {
     const response = await axios.get(
-      'http://localhost:3000/api/assistants/threads/thread_aohLbzFLIFj68pQVYMMqNYoX/messages?limit=100',
+      `http://localhost:3000/api/assistants/threads/${props.threadId}/messages`,
+      { params: { limit } },
     )
-    messages.value = response.data.data
+    return response.data.data
   } catch (error) {
     console.error('Error fetching messages:', error)
-  } finally {
-    isLoading.value = false
+    return []
   }
+}
+
+const fetchLastMessage = async () => {
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/api/assistants/threads/${props.threadId}/messages`,
+      { params: { limit: 1 } },
+    )
+    const lastMessage = response.data.data[0]
+    return lastMessage?.role === 'assistant' ? lastMessage : null
+  } catch (error) {
+    console.error('Error fetching last message:', error)
+    return null
+  }
+}
+
+const addMessage = async (content, role = 'user') => {
+  messages.value.push({
+    id: `temp_${Date.now()}`,
+    content: [{ type: 'text', text: { value: content } }],
+    role: role,
+    created_at: new Date().toISOString(),
+  })
+  return messages.value[messages.value.length - 1] // 추가된 메시지 반환
 }
 
 const handleSubmit = async (e) => {
@@ -41,17 +70,22 @@ const handleSubmit = async (e) => {
   const messageToSend = newMessage.value
   newMessage.value = ''
   isLoading.value = true
+
+  await addMessage(messageToSend)
+  scrollToBottom()
+
   try {
-    await axios.post(
-      'http://localhost:3000/api/assistants/threads/thread_aohLbzFLIFj68pQVYMMqNYoX/messages',
-      {
-        content: messageToSend,
-      },
-    )
-    await fetchMessages()
-    scrollToBottom()
+    await axios.post(`http://localhost:3000/api/assistants/threads/${props.threadId}/messages`, {
+      content: messageToSend,
+    })
+    const assistantMessage = await fetchLastMessage()
+    if (assistantMessage) {
+      await addMessage(assistantMessage.content[0].text.value, 'assistant')
+      scrollToBottom()
+    }
   } catch (error) {
     console.error('Error sending message:', error)
+    messages.value.pop()
   } finally {
     isLoading.value = false
   }
@@ -99,53 +133,64 @@ const useMessageFormatting = () => {
 const { formatMessageContent } = useMessageFormatting()
 
 onMounted(async () => {
-  await fetchMessages()
+  const initialMessages = await fetchMessages()
+  messages.value = initialMessages
+  isLoading.value = false
   scrollToBottom()
 })
 </script>
 
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="flex flex-col">
     <!-- Messages container with ref -->
-    <div ref="messagesContainer" class="flex flex-col flex-1 overflow-y-auto p-4 gap-y-4">
-      <template v-for="message in sortedMessages" :key="message.id">
-        <!-- Receiver message -->
-        <div v-if="message.role === 'assistant'" class="flex items-start">
-          <div class="bg-gray-100 rounded-lg p-3 max-w-[70%]">
-            <div
-              class="markdown text-gray-800 [&>*]:mb-3 [&>*:last-child]:mb-0"
-              v-html="formatMessageContent(message)"
-            ></div>
+    <div ref="messagesContainer" class="flex-1 overflow-auto">
+      <div class="flex flex-col gap-y-4 p-5 pt-10">
+        <template v-for="message in sortedMessages" :key="message.id">
+          <!-- Receiver message -->
+          <div v-if="message.role === 'assistant'" class="flex items-start">
+            <div class="relative bg-white rounded-2xl px-3 py-1.5 max-w-[70%]">
+              <figure>
+                <img
+                  src="@/assets/images/fig-vory-1.jpeg"
+                  class="absolute -top-8.5 left-2.5 w-10 h-10 object-cover rounded-full shadow-sm"
+                  alt=""
+                />
+              </figure>
+              <div
+                class="markdown text-primary [&>*]:mb-3 [&>*:last-child]:mb-0"
+                v-html="formatMessageContent(message)"
+              ></div>
+            </div>
           </div>
-        </div>
-
-        <!-- Sender message -->
-        <div v-else class="flex items-start justify-end">
-          <div class="bg-primary rounded-lg p-3 max-w-[70%]">
-            <div
-              class="markdown text-white [&>*]:mb-3 [&>*:last-child]:mb-0"
-              v-html="formatMessageContent(message)"
-            ></div>
+          <!-- Sender message -->
+          <div v-else class="flex items-start justify-end">
+            <div class="bg-primary rounded-2xl px-3 py-1.5 max-w-[70%]">
+              <div
+                class="markdown text-white [&>*]:mb-3 [&>*:last-child]:mb-0"
+                v-html="formatMessageContent(message)"
+              ></div>
+            </div>
           </div>
-        </div>
-      </template>
+        </template>
+      </div>
     </div>
 
     <!-- Input area -->
-    <div class="border-t p-4">
+    <div class="border-t border-primary/15 p-5">
       <form @submit="handleSubmit" class="flex gap-2">
         <input
           v-model="newMessage"
           type="text"
-          placeholder="메시지 입력"
-          class="flex-1 rounded-full border border-primary px-4 py-2 focus:outline-none focus:bg-white/40"
+          :placeholder="isLoading ? '답을 기다리는중!' : '뭐든 말해봐!'"
+          class="flex-1 rounded-full border border-primary px-4 py-2 text-primary focus:outline-none focus:bg-white/40"
         />
         <button
           type="submit"
-          class="bg-primary text-white px-6 py-2 rounded-full cursor-pointer hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          class="min-w-20 bg-primary text-white text-nowrap px-4 py-2 rounded-full cursor-pointer hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
           :disabled="isLoading"
         >
-          보내기
+          <AnimatedLoading v-if="isLoading" color="var(--color-white)" :size="16" class="mx-auto" />
+          <template v-else>보내기</template>
         </button>
       </form>
     </div>
@@ -167,6 +212,8 @@ onMounted(async () => {
   padding: 0.25rem 0.5rem;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 .markdown:deep(pre) {
   padding: 0.75rem;
