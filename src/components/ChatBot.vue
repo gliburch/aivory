@@ -136,7 +136,9 @@ onMounted(async () => {
   const initialMessages = await fetchMessages()
   messages.value = initialMessages
   isLoading.value = false
-  scrollToBottom()
+  setTimeout(() => {
+    scrollToBottom()
+  }, 0)
 })
 </script>
 
