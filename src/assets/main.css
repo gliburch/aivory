@@ -6,6 +6,22 @@ body {
   background-attachment: fixed;
 }
 
+@media (min-width: 1024px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgba(102, 22, 192, 0.3);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 22, 192, 0.6);
+  }
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
