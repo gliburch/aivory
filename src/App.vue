@@ -58,8 +58,7 @@ const isTalkingInline = ref(false)
         <section
           :class="[
             'relative w-[340px] mx-auto bg-white/60 rounded-xl shadow-lg border-2 border-white backdrop-blur-md text-primary',
-            'lg:absolute lg:bottom-15 lg:left-[50%] lg:translate-x-[-50%] lg:transition-transform',
-            'hover:-translate-y-0.5',
+            'lg:absolute lg:bottom-15 lg:left-[50%] lg:translate-x-[-50%] lg:transition-transform lg:hover:-translate-y-0.5',
           ]"
         >
           <h1
