@@ -1,6 +1,9 @@
 <script setup>
 import ChatBot from '@/components/ChatBot.vue'
-// import ChatBotLegacy from '@/components/ChatBotLegacy.vue'
+
+const { userThreadId = localStorage.getItem('aivory:assistant:userThreadId') || '' } = defineProps({
+  userThreadId: String,
+})
 </script>
 
 <template>
@@ -15,6 +18,6 @@ import ChatBot from '@/components/ChatBot.vue'
     >
       Aivory ❤️
     </h1>
-    <ChatBot threadId="thread_aohLbzFLIFj68pQVYMMqNYoX" class="h-full" />
+    <ChatBot :threadId="userThreadId" class="h-full" />
   </section>
 </template>

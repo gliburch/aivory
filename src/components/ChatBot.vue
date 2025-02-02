@@ -5,7 +5,9 @@ import { marked } from 'marked'
 import xss from 'xss'
 import AnimatedLoading from '@/components/AnimatedLoading.vue'
 
-const props = defineProps({
+const {
+  threadId = '',
+} = defineProps({
   threadId: String,
 })
 
@@ -13,6 +15,7 @@ const isLoading = ref(true)
 const messages = ref([])
 const newMessage = ref('')
 const messagesContainer = ref(null)
+const currentThreadId = ref(threadId)
 
 // Sort messages by created_at in descending order
 const sortedMessages = computed(() => {
@@ -26,10 +29,10 @@ const scrollToBottom = () => {
   }
 }
 
-const fetchMessages = async (limit = 100) => {
+const fetchMessages = async (limit = 10) => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/assistants/threads/${props.threadId}/messages`,
+      `http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`,
       { params: { limit } },
     )
     return response.data.data
@@ -42,7 +45,7 @@ const fetchMessages = async (limit = 100) => {
 const fetchLastMessage = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/assistants/threads/${props.threadId}/messages`,
+      `http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`,
       { params: { limit: 1 } },
     )
     const lastMessage = response.data.data[0]
@@ -75,7 +78,15 @@ const handleSubmit = async (e) => {
   scrollToBottom()
 
   try {
-    await axios.post(`http://localhost:3000/api/assistants/threads/${props.threadId}/messages`, {
+    if (!currentThreadId.value) {
+      // 새 쓰레드 생성
+      const response = await axios.post('http://localhost:3000/api/assistants/threads')
+      const { threadId } = response.data
+      currentThreadId.value = threadId
+      window.localStorage.setItem('aivory:assistant:userThreadId', threadId)
+    }
+
+    await axios.post(`http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`, {
       content: messageToSend,
     })
     const assistantMessage = await fetchLastMessage()
@@ -133,8 +144,10 @@ const useMessageFormatting = () => {
 const { formatMessageContent } = useMessageFormatting()
 
 onMounted(async () => {
-  const initialMessages = await fetchMessages()
-  messages.value = initialMessages
+  if (currentThreadId.value) {
+    const initialMessages = await fetchMessages()
+    messages.value = initialMessages
+  }
   isLoading.value = false
   setTimeout(() => {
     scrollToBottom()

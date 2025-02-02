@@ -5,6 +5,10 @@ import { Typed } from '@duskmoon/vue3-typed-js'
 import AivoryHero from '@/components/AivoryHero.vue'
 import ChatBot from '@/components/ChatBot.vue'
 
+const { userThreadId = localStorage.getItem('aivory:assistant:userThreadId') || '' } = defineProps({
+  userThreadId: String,
+})
+
 const isTalkingInline = ref(false)
 </script>
 
@@ -95,7 +99,7 @@ const isTalkingInline = ref(false)
               </RouterLink>
             </div>
             <div v-else>
-              <ChatBot threadId="thread_aohLbzFLIFj68pQVYMMqNYoX" />
+              <ChatBot :threadId="userThreadId" />
             </div>
           </Transition>
         </section>
