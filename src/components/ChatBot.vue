@@ -5,9 +5,7 @@ import { marked } from 'marked'
 import xss from 'xss'
 import AnimatedLoading from '@/components/AnimatedLoading.vue'
 
-const {
-  threadId = '',
-} = defineProps({
+const { threadId = '' } = defineProps({
   threadId: String,
 })
 
@@ -86,9 +84,12 @@ const handleSubmit = async (e) => {
       window.localStorage.setItem('aivory:assistant:userThreadId', threadId)
     }
 
-    await axios.post(`http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`, {
-      content: messageToSend,
-    })
+    await axios.post(
+      `http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`,
+      {
+        content: messageToSend,
+      },
+    )
     const assistantMessage = await fetchLastMessage()
     if (assistantMessage) {
       await addMessage(assistantMessage.content[0].text.value, 'assistant')
