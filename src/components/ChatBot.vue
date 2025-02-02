@@ -150,7 +150,7 @@ onMounted(async () => {
         <template v-for="message in sortedMessages" :key="message.id">
           <!-- Receiver message -->
           <div v-if="message.role === 'assistant'" class="flex items-start">
-            <div class="relative bg-white rounded-2xl px-3 py-1.5 max-w-[70%]">
+            <div class="relative bg-white rounded-2xl px-3 py-2 max-w-[70%]">
               <figure>
                 <img
                   src="@/assets/images/fig-vory-1.jpeg"
@@ -159,16 +159,16 @@ onMounted(async () => {
                 />
               </figure>
               <div
-                class="markdown text-primary [&>*]:mb-3 [&>*:last-child]:mb-0"
+                class="markdown text-primary"
                 v-html="formatMessageContent(message)"
               ></div>
             </div>
           </div>
           <!-- Sender message -->
           <div v-else class="flex items-start justify-end">
-            <div class="bg-primary rounded-2xl px-3 py-1.5 max-w-[70%]">
+            <div class="bg-primary rounded-2xl px-3 py-2 max-w-[70%]">
               <div
-                class="markdown text-white [&>*]:mb-3 [&>*:last-child]:mb-0"
+                class="markdown text-white"
                 v-html="formatMessageContent(message)"
               ></div>
             </div>
@@ -202,7 +202,7 @@ onMounted(async () => {
 <style scoped>
 .markdown {
   font-size: 1rem;
-  line-height: 1.625;
+  line-height: 1.6;
 }
 .markdown:deep(> * + *) {
   margin-top: 0.75em;
