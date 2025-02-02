@@ -1,6 +1,7 @@
 <script setup>
 import { ref, Transition } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { Typed } from '@duskmoon/vue3-typed-js'
 import AivoryHero from '@/components/AivoryHero.vue'
 import ChatBot from '@/components/ChatBot.vue'
 
@@ -67,30 +68,31 @@ const isTalkingInline = ref(false)
             Aivory ❤️
           </h1>
           <Transition name="fade" mode="out-in">
-            <div v-if="!isTalkingInline" class="p-5">
-              <span class="text-md">반가워요 저는 에이아이보리 라고 해요 :)&nbsp;</span><br />
-              <span class="text-md">( ... 대화하려면 클릭해요 )</span>
-              <!-- <Typed
-              :options="{
-              strings: ['반가워요 저는 에이아이보리 라고 해요 :)&nbsp;'],
-              typeSpeed: 35,
-              startDelay: 1000,
-              cursorChar: '_',
-              }">
-              <span class="text-lg"></span>
-            </Typed> -->
+            <div v-if="!isTalkingInline" class="min-h-23 p-5">
+              <Typed
+                :options="{
+                  strings: [
+                    '반가워요 저는 에이아이보리 라고 해요 :)&nbsp;<br>( ... 대화하려면 클릭해요 )',
+                  ],
+                  typeSpeed: 35,
+                  startDelay: 1000,
+                  cursorChar: '_',
+                }"
+              >
+                <span class="typing inline text-md"></span>
+              </Typed>
               <button
                 type="button"
                 class="block lg:hidden overflow-hidden absolute top-0 right-0 bottom-0 left-0 border-none bg-transparent text-[0px] -indent-[999px] cursor-pointer"
                 @click="isTalkingInline = true"
               >
-                대화 시작하기
+                바로 대화해보기
               </button>
               <RouterLink
                 class="hidden lg:block overflow-hidden absolute top-0 right-0 bottom-0 left-0 text-[0px] -indent-[999px]"
                 :to="{ name: 'chat' }"
               >
-                대화 시작하기
+                대화 메뉴로 가기
               </RouterLink>
             </div>
             <div v-else>
