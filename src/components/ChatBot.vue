@@ -158,19 +158,13 @@ onMounted(async () => {
                   alt=""
                 />
               </figure>
-              <div
-                class="markdown text-primary"
-                v-html="formatMessageContent(message)"
-              ></div>
+              <div class="markdown text-primary" v-html="formatMessageContent(message)"></div>
             </div>
           </div>
           <!-- Sender message -->
           <div v-else class="flex items-start justify-end">
             <div class="bg-primary rounded-2xl px-3 py-2 max-w-[70%]">
-              <div
-                class="markdown text-white"
-                v-html="formatMessageContent(message)"
-              ></div>
+              <div class="markdown text-white" v-html="formatMessageContent(message)"></div>
             </div>
           </div>
         </template>
