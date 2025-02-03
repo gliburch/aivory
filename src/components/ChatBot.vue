@@ -64,15 +64,11 @@ const addMessage = async (content, role = 'user') => {
   return messages.value[messages.value.length - 1] // 추가된 메시지 반환
 }
 
-const handleSubmit = async (e) => {
-  e.preventDefault()
-  if (!newMessage.value.trim()) return
+const sendMessage = async (messageContent) => {
+  if (!messageContent?.trim()) return
 
-  const messageToSend = newMessage.value
-  newMessage.value = ''
   isLoading.value = true
-
-  await addMessage(messageToSend)
+  await addMessage(messageContent)
   scrollToBottom()
 
   try {
@@ -87,7 +83,7 @@ const handleSubmit = async (e) => {
     await axios.post(
       `http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`,
       {
-        content: messageToSend,
+        content: messageContent,
       },
     )
     const assistantMessage = await fetchLastMessage()
@@ -101,6 +97,15 @@ const handleSubmit = async (e) => {
   } finally {
     isLoading.value = false
   }
+}
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  if (!newMessage.value.trim()) return
+
+  const messageToSend = newMessage.value
+  newMessage.value = ''
+  await sendMessage(messageToSend)
 }
 
 // Configure marked options
