@@ -166,7 +166,7 @@ onMounted(async () => {
   <div class="flex flex-col">
     <!-- Messages container with ref -->
     <div ref="messagesContainer" class="flex-1 overflow-auto">
-      <div class="flex flex-col gap-y-4 p-5 pt-10">
+      <div class="flex flex-col gap-y-4 p-5 pt-15">
         <template v-for="message in sortedMessages" :key="message.id">
           <!-- Receiver message -->
           <div v-if="message.role === 'assistant'" class="flex items-start">
