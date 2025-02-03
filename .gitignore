@@ -9,8 +9,6 @@ lerna-debug.log*
 
 node_modules
 .DS_Store
-docs/*
-!docs/CNAME
 dist
 dist-ssr
 coverage
