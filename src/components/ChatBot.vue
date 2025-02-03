@@ -144,7 +144,9 @@ const sendMessage = async (messageContent) => {
     const assistantMessage = await fetchLastMessage()
     if (assistantMessage) {
       await addMessage(assistantMessage.content[0].text.value, 'assistant')
-      scrollToBottom()
+      setTimeout(() => {
+        scrollToBottom()
+      }, 0)
     }
   } catch (error) {
     console.error('Error sending message:', error)
