@@ -24,7 +24,7 @@ const isTalkingInline = ref(false)
         <h1 class="text-2xl font-bold">
           <RouterLink :to="{ name: 'home' }">Aivory</RouterLink>
         </h1>
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-3">
           <a
             href="https://vaulted-pencil-b8c.notion.site/hub-174dc2175f7d8006a52dfafc345d6dd4"
             target="_blank"
