@@ -144,7 +144,9 @@ const sendMessage = async (messageContent) => {
     const assistantMessage = await fetchLastMessage()
     if (assistantMessage) {
       await addMessage(assistantMessage.content[0].text.value, 'assistant')
-      scrollToBottom()
+      setTimeout(() => {
+        scrollToBottom()
+      }, 0)
     }
   } catch (error) {
     console.error('Error sending message:', error)
@@ -279,11 +281,11 @@ onMounted(async () => {
           v-model="newMessage"
           type="text"
           :placeholder="isLoading ? '답을 기다리는 중이예요...' : '뭐든 이야기해 봐요 :)'"
-          class="flex-1 rounded-full border border-primary px-4 py-2 text-primary focus:outline-none focus:bg-white/40"
+          class="w-[80%] rounded-full border border-primary px-4 py-2 text-primary focus:outline-none focus:bg-white/40"
         />
         <button
           type="submit"
-          class="min-w-20 bg-primary text-white text-nowrap px-4 py-2 rounded-full cursor-pointer hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="flex-1 min-w-20 bg-primary text-white text-nowrap px-4 py-2 rounded-full cursor-pointer hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
           :disabled="isLoading"
         >
           <AnimatedLoading v-if="isLoading" color="var(--color-white)" :size="16" class="mx-auto" />
