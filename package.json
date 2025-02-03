@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@duskmoon/vue3-typed-js": "^0.0.4",
+    "@gtm-support/vue-gtm": "^3.1.0",
     "@tailwindcss/vite": "^4.0.0",
     "axios": "^1.7.9",
     "marked": "^15.0.6",
