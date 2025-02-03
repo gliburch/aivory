@@ -5,6 +5,8 @@ import { marked } from 'marked'
 import xss from 'xss'
 import AnimatedLoading from '@/components/AnimatedLoading.vue'
 
+const API_BASE_URL = 'https://aivory.vercel.app'
+
 const MESSAGE_EXAMPLES = [
   {
     title: '간단한 인사를 해보자',
@@ -64,7 +66,7 @@ const scrollToBottom = () => {
 const fetchMessages = async (limit = initialMessageCounts) => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`,
+      `${API_BASE_URL}/api/assistants/threads/${currentThreadId.value}/messages`,
       { params: { limit } },
     )
     return response.data.data
@@ -77,7 +79,7 @@ const fetchMessages = async (limit = initialMessageCounts) => {
 const fetchLastMessage = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`,
+      `${API_BASE_URL}/api/assistants/threads/${currentThreadId.value}/messages`,
       { params: { limit: 1 } },
     )
     const lastMessage = response.data.data[0]
@@ -130,18 +132,15 @@ const sendMessage = async (messageContent) => {
   try {
     if (!currentThreadId.value) {
       // 새 쓰레드 생성
-      const response = await axios.post('http://localhost:3000/api/assistants/threads')
+      const response = await axios.post(`${API_BASE_URL}/api/assistants/threads`)
       const { threadId } = response.data
       currentThreadId.value = threadId
       window.localStorage.setItem('aivory:assistant:userThreadId', threadId)
     }
 
-    await axios.post(
-      `http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`,
-      {
-        content: messageContent,
-      },
-    )
+    await axios.post(`${API_BASE_URL}/api/assistants/threads/${currentThreadId.value}/messages`, {
+      content: messageContent,
+    })
     const assistantMessage = await fetchLastMessage()
     if (assistantMessage) {
       await addMessage(assistantMessage.content[0].text.value, 'assistant')
