@@ -5,6 +5,29 @@ import { marked } from 'marked'
 import xss from 'xss'
 import AnimatedLoading from '@/components/AnimatedLoading.vue'
 
+const MESSAGE_EXAMPLES = [
+  {
+    title: '간단한 인사를 해보자',
+    message: '안녕 👋',
+  },
+  {
+    title: '자기 소개를 시켜보자',
+    message: '너에 대해 알고싶어.',
+  },
+  {
+    title: '내 이름을 물어보게 해보자',
+    message: '내 이름을 물어봐줄래?\n그리고 앞으로는 그 이름으로 불러줘.',
+  },
+  {
+    title: '$HUB가 뭔지 물어보자',
+    message: '$HUB에 대해 간단히 설명해줄래?',
+  },
+  {
+    title: 'Aivory의 미래를 물어보자',
+    message: 'Aivory는 앞으로 어떻게 발전할거 같아?',
+  },
+]
+
 const { threadId: threadId = '', latestMessageCounts: initialMessageCounts = 100 } = defineProps({
   threadId: String,
   latestMessageCounts: Number,
@@ -15,6 +38,16 @@ const messages = ref([])
 const newMessage = ref('')
 const messagesContainer = ref(null)
 const currentThreadId = ref(threadId)
+
+// localStorage에서 시도한 메시지 목록을 가져옴
+const messageExamplesTried = ref(
+  JSON.parse(localStorage.getItem('aivory:assistant:usedMessageExamples') || '[]'),
+)
+
+// 시도하지 않은 메시지 예시만 필터링하는 computed 속성
+const availableMessageExamples = computed(() => {
+  return MESSAGE_EXAMPLES.filter((example) => !messageExamplesTried.value.includes(example.title))
+})
 
 // Sort messages by created_at in descending order
 const sortedMessages = computed(() => {
@@ -65,9 +98,31 @@ const addMessage = async (content, role = 'user') => {
   return messages.value[messages.value.length - 1] // 추가된 메시지 반환
 }
 
+const markMessageExampleAsUsed = (messageContent) => {
+  const example = MESSAGE_EXAMPLES.find((ex) => ex.message === messageContent)
+  if (example && !messageExamplesTried.value.includes(example.title)) {
+    messageExamplesTried.value.push(example.title)
+    localStorage.setItem(
+      'aivory:assistant:usedMessageExamples',
+      JSON.stringify(messageExamplesTried.value),
+    )
+  }
+}
+
+const dismissMessageExample = (title) => {
+  if (!messageExamplesTried.value.includes(title)) {
+    messageExamplesTried.value.push(title)
+    localStorage.setItem(
+      'aivory:assistant:usedMessageExamples',
+      JSON.stringify(messageExamplesTried.value),
+    )
+  }
+}
+
 const sendMessage = async (messageContent) => {
   if (!messageContent?.trim()) return
 
+  markMessageExampleAsUsed(messageContent)
   isLoading.value = true
   await addMessage(messageContent)
   scrollToBottom()
@@ -188,6 +243,33 @@ onMounted(async () => {
             </div>
           </div>
         </template>
+        <!-- Message examples -->
+        <template v-if="!isLoading">
+          <div
+            v-for="{ title, message } in availableMessageExamples"
+            :key="title"
+            class="flex items-start justify-end"
+          >
+            <div
+              class="relative flex items-stretch border-2 border-primary border-dashed rounded-2xl overflow-hidden transition-all group hover:-translate-x-1.5"
+            >
+              <button
+                type="button"
+                class="flex-1 pr-10 py-1.5 pl-3 cursor-pointer transition-colors hover:bg-primary/10"
+                @click="sendMessage(message)"
+              >
+                {{ title }}
+              </button>
+              <button
+                type="button"
+                class="absolute top-[50%] right-1 translate-y-[-50%] w-8 h-8 flex items-center justify-center rounded-full bg-transparent hover:bg-primary/10 text-md cursor-pointer"
+                @click="dismissMessageExample(title)"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -197,7 +279,7 @@ onMounted(async () => {
         <input
           v-model="newMessage"
           type="text"
-          :placeholder="isLoading ? '답을 기다리는중!' : '뭐든 말해봐!'"
+          :placeholder="isLoading ? '답을 기다리는 중이예요...' : '뭐든 이야기해 봐요 :)'"
           class="flex-1 rounded-full border border-primary px-4 py-2 text-primary focus:outline-none focus:bg-white/40"
         />
         <button
