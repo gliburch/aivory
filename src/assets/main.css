@@ -1,0 +1,33 @@
+@import './base.css';
+
+body {
+  background: url('images/bg-body.jpg') no-repeat 50% 50%;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+@media (min-width: 1024px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgba(102, 22, 192, 0.3);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 22, 192, 0.6);
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
