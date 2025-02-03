@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "echo aivory.me > docs/CNAME",
     "preview": "vite preview",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"
