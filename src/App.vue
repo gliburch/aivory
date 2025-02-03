@@ -99,7 +99,7 @@ const isTalkingInline = ref(false)
               </RouterLink>
             </div>
             <div v-else>
-              <ChatBot :threadId="userThreadId" />
+              <ChatBot :threadId="userThreadId" :latestMessageCounts="3" />
             </div>
           </Transition>
         </section>

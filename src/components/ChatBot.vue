@@ -5,8 +5,9 @@ import { marked } from 'marked'
 import xss from 'xss'
 import AnimatedLoading from '@/components/AnimatedLoading.vue'
 
-const { threadId = '' } = defineProps({
+const { threadId: threadId = '', latestMessageCounts: initialMessageCounts = 100 } = defineProps({
   threadId: String,
+  latestMessageCounts: Number,
 })
 
 const isLoading = ref(true)
@@ -27,7 +28,7 @@ const scrollToBottom = () => {
   }
 }
 
-const fetchMessages = async (limit = 10) => {
+const fetchMessages = async (limit = initialMessageCounts) => {
   try {
     const response = await axios.get(
       `http://localhost:3000/api/assistants/threads/${currentThreadId.value}/messages`,
@@ -151,7 +152,7 @@ const { formatMessageContent } = useMessageFormatting()
 
 onMounted(async () => {
   if (currentThreadId.value) {
-    const initialMessages = await fetchMessages()
+    const initialMessages = await fetchMessages(initialMessageCounts)
     messages.value = initialMessages
   }
   isLoading.value = false
