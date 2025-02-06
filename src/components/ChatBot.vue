@@ -245,7 +245,8 @@ onMounted(async () => {
           </div>
         </template>
         <!-- Message examples -->
-        <template v-if="!isLoading">
+        <template v-if="false">
+        <!-- <template v-if="!isLoading"> -->
           <div
             v-for="{ title, message } in availableMessageExamples"
             :key="title"
